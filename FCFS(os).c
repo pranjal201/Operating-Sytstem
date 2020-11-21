@@ -1,38 +1,71 @@
-#include <pthread.h>
-#include <stdio.h>
-int size, buffer[100], no_of_samples_in_buffer;
-int main()
-{
-pthread_t id1, id2, id3;
-pthread_mutex_t buf_mutex, condition_mutex;
-pthread_cond_t buf_full, buf_empty;
-pthread_create(&id1, NULL, move_to_buffer, NULL);
-pthread_create(&id2, NULL, write_into_file, NULL);
-pthread_create(&id3, NULL, analysis, NULL);
-pthread_join(id1, NULL);
-pthread_join(id2, NULL);
-pthread_join(id3, NULL);
-pthread_exit(0);
-}
-void *move_to_buffer()
-{
-/* Repeat until all samples are received */
-/* If no space in buffer, wait on buf_full */
-/* Use buf_mutex to access the buffer, increment no. of samples */
-/* Signal buf_empty */
-pthread_exit(0);
-}
-void *write_into_file()
-{
-/* Repeat until all samples are written into the file */
-/* If no data in buffer, wait on buf_empty */
-/* Use buf_mutex to access the buffer, decrement no. of samples */
-/* Signal buf_full */
-pthread_exit(0);
-}
-void *analysis()
-{
-/* Repeat until all samples are analyzed */
-/* Read a sample from the buffer and analyze it */
-pthread_exit(0);
-}
+// C program for implementation of FCFS   
+// scheduling  
+#include<stdio.h>  
+// Function to find the waiting time for all   
+// processes  
+void findWaitingTime(int processes[], int n,   
+                          int bt[], int wt[])  
+{  
+    // waiting time for first process is 0  
+    wt[0] = 0;  
+    
+    // calculating waiting time  
+    for (int  i = 1; i < n ; i++ )  
+        wt[i] =  bt[i-1] + wt[i-1] ;  
+}  
+    
+// Function to calculate turn around time  
+void findTurnAroundTime( int processes[], int n,   
+                  int bt[], int wt[], int tat[])  
+{  
+    // calculating turnaround time by adding  
+    // bt[i] + wt[i]  
+    for (int  i = 0; i < n ; i++)  
+        tat[i] = bt[i] + wt[i];  
+}  
+    
+//Function to calculate average time  
+void findavgTime( int processes[], int n, int bt[])  
+{  
+    int wt[n], tat[n], total_wt = 0, total_tat = 0;  
+    
+    //Function to find waiting time of all processes  
+    findWaitingTime(processes, n, bt, wt);  
+    
+    //Function to find turn around time for all processes  
+    findTurnAroundTime(processes, n, bt, wt, tat);  
+    
+    //Display processes along with all details  
+    printf("Processes   Burst time   Waiting time   Turn around time\n");  
+    
+    // Calculate total waiting time and total turn   
+    // around time  
+    for (int  i=0; i<n; i++)  
+    {  
+        total_wt = total_wt + wt[i];  
+        total_tat = total_tat + tat[i];  
+        printf("   %d ",(i+1)); 
+        printf("       %d ", bt[i] ); 
+        printf("       %d",wt[i] ); 
+        printf("       %d\n",tat[i] );  
+    }  
+    int s=(float)total_wt / (float)n; 
+    int t=(float)total_tat / (float)n; 
+    printf("Average waiting time = %d",s); 
+    printf("\n"); 
+    printf("Average turn around time = %d ",t);  
+}  
+    
+// Driver code  
+int main()  
+{  
+    //process id's  
+    int processes[] = { 1, 2, 3};  
+    int n = sizeof processes / sizeof processes[0];  
+    
+    //Burst time of all processes  
+    int  burst_time[] = {10, 5, 8};  
+    
+    findavgTime(processes, n,  burst_time);  
+    return 0;  
+} 
