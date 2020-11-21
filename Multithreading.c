@@ -31,3 +31,11 @@ pthread_join(f1,NULL);
 
 printf("Factorial 20! = %lu\n", fact[0]*fact[1]*fact[2]*fact[3]);
 }
+//OUTPUT----------------------
+/*
+120
+30240
+360360
+1860480
+Factorial 20! = 2432902008176640000
+*/
