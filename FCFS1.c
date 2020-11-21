@@ -43,3 +43,13 @@ int burst_time[]={10,5,8,4};
 avg_times(processes,nop,burst_time);
 return 0;
 }
+//OUTPUT------------
+/*
+ Process | Burst Time | Waiting Time | Turn Around Time
+      1        10          0             10    
+      2        5          10             15    
+      3        8          15             23    
+      4        4          23             27    
+Average Waiting Time = 12.000000
+Average Turn Around Time = 18.750000
+*/
