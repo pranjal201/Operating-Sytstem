@@ -55,3 +55,13 @@ int burst_time[]={5,9,6,4};
 find_time(processes,nop,arrival_time,burst_time);
 return 0;
 }
+//OUTPUT---------------
+/*
+Processes   Arrival Time    Burst Time  Completion Time     Turn around Time    Waiting Time    
+    1            0              5                 5                  5                   0
+    2            3              9                 14                  11                   2
+    3            6              6                 20                  14                   8
+    4            8              4                 24                  16                   12
+Average Turn Around Time=11.500000
+Average Waiting Time=5.500000
+*/
